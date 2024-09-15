@@ -8,12 +8,15 @@ https://pitstopf1.streamlit.app/
 Cara Menjalankan Aplikasi Secara Lokal: Jika Anda ingin menjalankan
 aplikasi secara lokal di mesin Anda, ikuti langkah-langkah berikut:
 
-1\. Persyaratan - Pastikan Anda telah menginstal Python versi 3.7 atau
+1\. Persyaratan
+- Pastikan Anda telah menginstal Python versi 3.7 atau
 yang lebih baru. Anda juga perlu menginstal beberapa paket Python yang
 diperlukan.
 
-2\. Unduh Source Code - Unduh file ZIP yang berisi source code aplikasi
-dari repository atau tautan yang diberikan. - Ekstrak file ZIP ke dalam
+2\. Unduh Source Code
+- Unduh file ZIP yang berisi source code aplikasi
+dari repository atau tautan yang diberikan.
+- Ekstrak file ZIP ke dalam
 folder di mesin Anda.
 
 3\. Instalasi Paket Buka terminal atau command prompt, navigasikan ke
