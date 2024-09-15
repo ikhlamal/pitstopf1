@@ -54,7 +54,7 @@ def manual_pit_strategy(total_laps, lap_length_km, average_speed_kmh, pit_stop_t
 
     # Tambahkan lap 0 dengan waktu lap 0
     initial_lap_time = lap_time(tire_wear, lap_length_km, average_speed_kmh)
-    lap_data.append((initial_lap_time, pit_stops, tire_wear))  # Waktu lap = initial_lap_time, keausan ban = 0, pit stop = 0
+    lap_data.append((tire_wear, initial_lap_time, pit_stops))
 
     for lap in range(1, total_laps + 1):
         if lap in manual_pit_laps:
