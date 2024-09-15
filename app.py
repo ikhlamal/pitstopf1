@@ -52,7 +52,7 @@ def manual_pit_strategy(total_laps, lap_length_km, average_speed_kmh, pit_stop_t
     pit_stops = 0
     lap_data = []
 
-    for lap in range(0, total_laps + 1):
+    for lap in range(1, total_laps + 1):
         if lap in manual_pit_laps:
             time_so_far += lap_time(tire_wear, lap_length_km, average_speed_kmh) + pit_stop_time
             tire_wear = 0  # Reset keausan ban setelah pit stop
@@ -143,7 +143,6 @@ if submit_button:
 
         # Buat DataFrame hasil
         df_manual = pd.DataFrame(manual_lap_data, columns=['Waktu Lap (detik)', 'Pit Stop', 'Tingkat Keausan Ban (%)'])
-        df_manual.index += 1  # Untuk menampilkan lap mulai dari 1
         st.write(f"Waktu total dengan strategi pit stop manual: {manual_time / 3600:.2f} jam ({manual_time:.2f} detik)")
         st.dataframe(df_manual)
 
