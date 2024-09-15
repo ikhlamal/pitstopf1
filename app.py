@@ -54,6 +54,9 @@ def manual_pit_strategy(total_laps, lap_length_km, average_speed_kmh, pit_stop_t
 
     # Membuat set untuk pit stop lap untuk akses yang lebih cepat
     manual_pit_lap_set = set(manual_pit_laps)
+    
+    # Tambahkan lap 0 dengan keausan ban 0
+    lap_data.append((0, pit_stops, tire_wear))
 
     for lap in range(1, total_laps + 1):
         # Jika lap saat ini adalah lap pit stop, tambahkan waktu lap dan waktu pit stop
