@@ -97,7 +97,7 @@ if st.button("Jalankan Simulasi"):
 
 if 'best_time' in st.session_state:
     hours, minutes, seconds = convert_seconds_to_hms(st.session_state.best_time)
-    st.write(f"Waktu total optimal dengan A* adalah: {hours}:{minutes}:{seconds} ({st.session_state.best_time:.2f} detik)")
+    st.success(f"Waktu total optimal dengan A* adalah: {hours}:{minutes}:{seconds} ({st.session_state.best_time:.2f} detik)")
     st.write(f"Pit stop dilakukan pada lap: {st.session_state.pit_laps}")
 
     df_lap = pd.DataFrame(st.session_state.lap_data, columns=['Tingkat Keausan Ban (%)', 'Waktu Lap (detik)', 'Pit Stop'])
@@ -132,7 +132,7 @@ if submit_button:
         df_manual = pd.DataFrame(manual_lap_data, columns=['Tingkat Keausan Ban (%)', 'Waktu Lap (detik)', 'Pit Stop'])
         df_manual.index += 1
         hours, minutes, seconds = convert_seconds_to_hms(manual_time)
-        st.write(f"Waktu total dengan strategi pit stop manual: {hours}:{minutes}:{seconds} ({manual_time:.2f} detik)")
+        st.success(f"Waktu total dengan strategi pit stop manual: {hours}:{minutes}:{seconds} ({manual_time:.2f} detik)")
         st.dataframe(df_manual)
 
     else:
