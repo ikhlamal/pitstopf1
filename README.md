@@ -37,11 +37,10 @@ http://localhost:8501.
 5\. Menggunakan Aplikasi
 
 \- Pilih Sirkuit: Dari menu dropdown di sidebar, pilih sirkuit balapan
-yang ingin Anda simulasikan. - Masukkan Parameter Simulasi: Tentukan
-jumlah lap, kecepatan rata-rata mobil, dan tingkat keausan ban per
-lap. - Jalankan Simulasi: Klik tombol \"Jalankan Simulasi\" untuk
-melihat hasil simulasi dengan algoritma A\*. - Pit Stop Manual: Jika
-ingin menentukan pit stop manual, masukkan lap-lap di mana pit stop akan
+yang ingin Anda simulasikan.
+- Masukkan Parameter Simulasi: Tentukan jumlah lap, kecepatan rata-rata mobil, dan tingkat keausan ban per lap.
+- Jalankan Simulasi: Klik tombol \"Jalankan Simulasi\" untuk melihat hasil simulasi dengan algoritma A\*.
+- Pit Stop Manual: Jika ingin menentukan pit stop manual, masukkan lap-lap di mana pit stop akan
 dilakukan dan klik \"Konfirmasi Pit Stop\" untuk melihat hasilnya.
 
 6\. Mengatasi Masalah Jika Anda mengalami masalah saat menjalankan
