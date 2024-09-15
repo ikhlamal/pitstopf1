@@ -113,7 +113,8 @@ if st.button("Jalankan Simulasi"):
 
 # Jika hasil simulasi A* sudah ada, tampilkan
 if 'best_time' in st.session_state:
-    st.write(f"Waktu total optimal dengan A* adalah: {st.session_state.best_time / 3600:.2f} jam ({st.session_state.best_time:.2f} detik)")
+    hours, minutes, seconds = convert_seconds_to_hms(st.session_state.best_time)
+    st.write(f"Waktu total optimal dengan A* adalah: {hours}:{minutes}:{seconds} ({st.session_state.best_time:.2f} detik)")
     st.write(f"Pit stop dilakukan pada lap: {st.session_state.pit_laps}")
 
     df_lap = pd.DataFrame(st.session_state.lap_data, columns=['Tingkat Keausan Ban (%)', 'Waktu Lap (detik)', 'Pit Stop'])
@@ -122,7 +123,7 @@ if 'best_time' in st.session_state:
     st.dataframe(df_lap)
 
 # Input pit stop manual
-st.write("Masukkan lap untuk pit stop manual (maksimal 5 pit stop):")
+st.write("Masukkan lap untuk pit stop manual:")
 
 # Inisialisasi session state untuk pit stop jika belum ada
 if 'manual_pit_laps' not in st.session_state:
