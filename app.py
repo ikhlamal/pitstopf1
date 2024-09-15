@@ -15,7 +15,7 @@ def lap_time(tire_wear, lap_length_km, average_speed_kmh):
 # Fungsi untuk menentukan kapan pit stop sebaiknya dilakukan
 def a_star_pit_strategy(total_laps, lap_length_km, average_speed_kmh, wear_increase_per_lap, pit_stop_time, max_wear_limit):
     initial_tire_wear = 0  # Tingkat keausan ban awal (%)
-    start = (0, 0, initial_tire_wear, 0, [], [])  # Start state
+    start = (0, 1, initial_tire_wear, 0, [], [])  # Start state
     pq = [(0, start)]  # Priority queue: (f_cost, state)
     visited = set()
     lap_data = []
@@ -23,7 +23,7 @@ def a_star_pit_strategy(total_laps, lap_length_km, average_speed_kmh, wear_incre
     while pq:
         f_cost, (time_so_far, lap, tire_wear, pit_stops, pit_laps, lap_data) = heapq.heappop(pq)
         
-        if lap <= total_laps:
+        if lap < total_laps:
             current_lap_data = (lap_time(tire_wear, lap_length_km, average_speed_kmh), pit_stops, tire_wear)
             lap_data.append(current_lap_data)
         
