@@ -53,6 +53,8 @@ def manual_pit_strategy(total_laps, lap_length_km, average_speed_kmh, pit_stop_t
     pit_stops = 0
     lap_data = []
 
+    manual_pit_laps = sorted(set(manual_pit_laps))  # Menghapus duplikat dan mengurutkan lap
+
     for lap in range(1, total_laps + 1):
         if lap in manual_pit_laps:
             time_so_far += lap_time(tire_wear, lap_length_km, average_speed_kmh) + pit_stop_time
@@ -62,7 +64,7 @@ def manual_pit_strategy(total_laps, lap_length_km, average_speed_kmh, pit_stop_t
             time_so_far += lap_time(tire_wear, lap_length_km, average_speed_kmh)
             tire_wear += wear_increase_per_lap
 
-        lap_data.append((lap_time(tire_wear, lap_length_km, average_speed_kmh), pit_stops, tire_wear))
+        lap_data.append((tire_wear, time_so_far, pit_stops))
 
     return time_so_far, lap_data, manual_pit_laps
 
@@ -143,9 +145,10 @@ if submit_button:
         )
 
         # Buat DataFrame hasil
-        df_manual = pd.DataFrame(manual_lap_data, columns=['Waktu Lap (detik)', 'Pit Stop', 'Tingkat Keausan Ban (%)'])
+        df_manual = pd.DataFrame(manual_lap_data, columns=['Tingkat Keausan Ban (%)', 'Waktu Lap (detik)', 'Pit Stop'])
         df_manual.index += 1  # Untuk menampilkan lap mulai dari 1
         st.write(f"Waktu total dengan strategi pit stop manual: {manual_time / 3600:.2f} jam ({manual_time:.2f} detik)")
+        st.write(f"Pit stop dilakukan pada lap: {manual_pit_laps}")
         st.dataframe(df_manual)
 
     else:
