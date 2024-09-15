@@ -46,6 +46,7 @@ yang ingin Anda simulasikan.
 - Pit Stop Manual: Jika ingin menentukan pit stop manual, masukkan lap-lap di mana pit stop akan
 dilakukan dan klik \"Konfirmasi Pit Stop\" untuk melihat hasilnya.
 
-6\. Mengatasi Masalah Jika Anda mengalami masalah saat menjalankan
+6\. Mengatasi Masalah
+Jika Anda mengalami masalah saat menjalankan
 aplikasi, pastikan bahwa semua paket diinstal dengan benar dan versi
 Python yang digunakan sesuai dengan yang direkomendasikan.
