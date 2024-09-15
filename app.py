@@ -46,23 +46,26 @@ def a_star_pit_strategy(total_laps, lap_length_km, average_speed_kmh, wear_incre
             next_state = (next_time, lap + 1, next_tire_wear, pit_stops + 1, pit_laps + [lap + 1], lap_data.copy())
             heapq.heappush(pq, (next_time + (total_laps - (lap + 1)) * lap_time(next_tire_wear, lap_length_km, average_speed_kmh), next_state))
 
-# Fungsi untuk strategi pit stop manual
 def manual_pit_strategy(total_laps, lap_length_km, average_speed_kmh, pit_stop_time, manual_pit_laps, initial_tire_wear, wear_increase_per_lap):
     time_so_far = 0
     tire_wear = initial_tire_wear
     pit_stops = 0
     lap_data = []
 
+    manual_pit_laps = sorted(set(manual_pit_laps))  # Menghapus duplikat dan mengurutkan lap
+    lap_idx = 0
+
     for lap in range(1, total_laps + 1):
-        if lap in manual_pit_laps:
+        if lap_idx < len(manual_pit_laps) and lap == manual_pit_laps[lap_idx]:
             time_so_far += lap_time(tire_wear, lap_length_km, average_speed_kmh) + pit_stop_time
             tire_wear = 0  # Reset keausan ban setelah pit stop
             pit_stops += 1
+            lap_data.append((tire_wear, lap_time(tire_wear, lap_length_km, average_speed_kmh), pit_stops))
+            lap_idx += 1
         else:
             time_so_far += lap_time(tire_wear, lap_length_km, average_speed_kmh)
             tire_wear += wear_increase_per_lap
-
-        lap_data.append((lap_time(tire_wear, lap_length_km, average_speed_kmh), pit_stops, tire_wear))
+            lap_data.append((tire_wear, lap_time(tire_wear, lap_length_km, average_speed_kmh), pit_stops))
 
     return time_so_far, lap_data, manual_pit_laps
 
