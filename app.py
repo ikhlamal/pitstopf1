@@ -108,9 +108,9 @@ if 'best_time' in st.session_state:
     st.write(f"Waktu total optimal dengan A* adalah: {st.session_state.best_time / 3600:.2f} jam ({st.session_state.best_time:.2f} detik)")
     st.write(f"Pit stop dilakukan pada lap: {st.session_state.pit_laps}")
 
-    df_lap = pd.DataFrame(st.session_state.lap_data, columns=['Tingkat Keausan Ban (%)', 'Waktu Lap (detik)', 'Pit Stop'])
+    df_lap = pd.DataFrame(st.session_state.lap_data, columns=['Lap', 'Waktu Total (detik)', 'Jumlah Pit Stop', 'Tingkat Keausan Ban (%)'])
     df_lap.index += 1  # Untuk menampilkan lap mulai dari 1
-    st.write("Tabel Data Per Lap:")
+    st.write("Tabel Data Per Lap (A*):")
     st.dataframe(df_lap)
 
 # Form untuk input pit stop manual
@@ -145,12 +145,11 @@ if submit_button:
         manual_time, manual_lap_data, manual_pit_laps = manual_pit_strategy(
             jumlah_lap, sirkuit_info['jarak'], average_speed_kmh, 22, manual_pit_laps, 0, wear_increase_per_lap
         )
-
-        # Buat DataFrame hasil
-        df_manual = pd.DataFrame(manual_lap_data, columns=['Waktu Lap (detik)', 'Pit Stop', 'Tingkat Keausan Ban (%)'])
-        df_manual.index += 1  # Untuk menampilkan lap mulai dari 1
         st.write(f"Waktu total dengan strategi pit stop manual: {manual_time / 3600:.2f} jam ({manual_time:.2f} detik)")
-        st.dataframe(df_manual)
 
+        df_manual = pd.DataFrame(manual_lap_data, columns=['Lap', 'Waktu Total (detik)', 'Jumlah Pit Stop', 'Tingkat Keausan Ban (%)'])
+        df_manual.index += 1  # Untuk menampilkan lap mulai dari 1
+        st.write("Tabel Data Per Lap (Manual):")
+        st.dataframe(df_manual)
     else:
         st.write("Tidak ada pit stop yang dipilih.")
