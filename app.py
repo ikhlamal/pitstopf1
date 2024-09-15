@@ -53,13 +53,19 @@ def manual_pit_strategy(total_laps, lap_length_km, average_speed_kmh, pit_stop_t
     pit_stops = 0
     lap_data = []
 
+    # Mengatur lap pit stop menjadi set untuk kemudahan pencarian
+    pit_stop_set = set(manual_pit_laps)
+
     for lap in range(1, total_laps + 1):
-        if lap in manual_pit_laps:
+        if lap in pit_stop_set:
+            # Tambahkan waktu lap + pit stop
             time_so_far += lap_time(tire_wear, lap_length_km, average_speed_kmh) + pit_stop_time
-            tire_wear = 0  # Reset keausan ban setelah pit stop
+            # Reset keausan ban setelah pit stop
+            tire_wear = 0
             pit_stops += 1
         else:
             time_so_far += lap_time(tire_wear, lap_length_km, average_speed_kmh)
+            # Update keausan ban setelah setiap lap
             tire_wear += wear_increase_per_lap
 
         lap_data.append((lap_time(tire_wear, lap_length_km, average_speed_kmh), pit_stops, tire_wear))
