@@ -1,5 +1,5 @@
 **Implementasi Algoritma A\* untuk Menentukan Waktu Pit Stop Ideal pada
-Balapan Formula 1
+Balapan Formula 1**
 
 Cara Mengakses Program: Anda dapat mengakses aplikasi simulasi secara
 langsung dengan mengunjungi tautan berikut:
