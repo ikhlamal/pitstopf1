@@ -105,18 +105,24 @@ if st.button("Jalankan Simulasi"):
     st.write("Tabel Data Per Lap:")
     st.dataframe(df_lap)
 
+    # Inisialisasi session state untuk pit stop jika belum ada
+    if 'manual_pit_laps' not in st.session_state:
+        st.session_state.manual_pit_laps = [0] * 5  # Inisialisasi dengan 5 pit stop, semua nol
+    
     st.write("Masukkan lap untuk pit stop manual (maksimal 5 pit stop):")
     manual_pit_laps = []
+    
+    # Loop untuk input pit stop dengan session state
     for i in range(5):
-        pit_stop_input = st.number_input(
-            f"Pit stop {i+1} (opsional):", 
-            min_value=0, 
-            max_value=jumlah_lap, 
-            value=0, 
+        st.session_state.manual_pit_laps[i] = st.number_input(
+            f"Pit stop {i+1} (opsional):",
+            min_value=0,
+            max_value=jumlah_lap,
+            value=st.session_state.manual_pit_laps[i],
             key=f'pit_stop_{i+1}'
         )
-        if pit_stop_input > 0:
-            manual_pit_laps.append(pit_stop_input)
+        if st.session_state.manual_pit_laps[i] > 0:
+            manual_pit_laps.append(st.session_state.manual_pit_laps[i])
     
     # Strategi Manual (jika input pit stop manual diberikan)
     if manual_pit_laps:
@@ -134,3 +140,4 @@ if st.button("Jalankan Simulasi"):
         st.write(df_manual)
     else:
         st.write("Anda belum memasukkan lap untuk pit stop manual.")
+    
