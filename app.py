@@ -69,7 +69,7 @@ def manual_pit_strategy(total_laps, lap_length_km, average_speed_kmh, pit_stop_t
         
         # Catat data lap, tetapi hanya jika lap < total_laps
         if lap < total_laps:
-            lap_data.append((lap_time(tire_wear, lap_length_km, average_speed_kmh), pit_stops, tire_wear))
+            lap_data.append((tire_wear, lap_time(tire_wear, lap_length_km, average_speed_kmh), pit_stops))
     
     return time_so_far, lap_data, manual_pit_laps
     
@@ -150,7 +150,7 @@ if submit_button:
         )
 
         # Buat DataFrame hasil
-        df_manual = pd.DataFrame(manual_lap_data, columns=['Waktu Lap (detik)', 'Pit Stop', 'Tingkat Keausan Ban (%)'])
+        df_manual = pd.DataFrame(manual_lap_data, columns=['Tingkat Keausan Ban (%)', 'Waktu Lap (detik)', 'Pit Stop'])
         df_manual.index += 1
         st.write(f"Waktu total dengan strategi pit stop manual: {manual_time / 3600:.2f} jam ({manual_time:.2f} detik)")
         st.dataframe(df_manual)
