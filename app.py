@@ -65,6 +65,9 @@ def manual_pit_strategy(total_laps, lap_length_km, average_speed_kmh, pit_stop_t
             pit_stops += 1
             lap_data.append((tire_wear, lap_time(tire_wear, lap_length_km, average_speed_kmh), pit_stops))
         else:
+            if lap == 1:
+                # Lap pertama dimulai dengan keausan ban 0 jika tidak ada pit stop
+                tire_wear = 0
             time_so_far += lap_time(tire_wear, lap_length_km, average_speed_kmh)
             tire_wear += wear_increase_per_lap
             lap_data.append((tire_wear, lap_time(tire_wear, lap_length_km, average_speed_kmh), pit_stops))
