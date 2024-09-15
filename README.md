@@ -36,7 +36,7 @@ http://localhost:8501.
 
 5\. Menggunakan Aplikasi
 
-\- Pilih Sirkuit: Dari menu dropdown di sidebar, pilih sirkuit balapan
+- Pilih Sirkuit: Dari menu dropdown di sidebar, pilih sirkuit balapan
 yang ingin Anda simulasikan.
 - Masukkan Parameter Simulasi: Tentukan jumlah lap, kecepatan rata-rata mobil, dan tingkat keausan ban per lap.
 - Jalankan Simulasi: Klik tombol \"Jalankan Simulasi\" untuk melihat hasil simulasi dengan algoritma A\*.
