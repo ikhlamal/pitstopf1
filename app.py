@@ -108,7 +108,7 @@ if 'best_time' in st.session_state:
     st.write("Tabel Data Per Lap:")
     st.dataframe(df_lap)
 
-# Form untuk input pit stop manual
+# Input pit stop manual
 st.write("Masukkan lap untuk pit stop manual (maksimal 5 pit stop):")
 
 # Inisialisasi session state untuk pit stop jika belum ada
