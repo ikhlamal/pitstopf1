@@ -52,18 +52,25 @@ def manual_pit_strategy(total_laps, lap_length_km, average_speed_kmh, pit_stop_t
     pit_stops = 0
     lap_data = []
 
+    # Membuat set untuk pit stop lap untuk akses yang lebih cepat
+    manual_pit_lap_set = set(manual_pit_laps)
+
     for lap in range(1, total_laps + 1):
-        if lap in manual_pit_laps:
+        if lap in manual_pit_lap_set:
+            # Jika lap saat ini adalah lap pit stop, tambahkan waktu lap dan waktu pit stop
             time_so_far += lap_time(tire_wear, lap_length_km, average_speed_kmh) + pit_stop_time
             tire_wear = 0  # Reset keausan ban setelah pit stop
             pit_stops += 1
         else:
+            # Tambahkan waktu lap dan tingkatkan keausan ban
             time_so_far += lap_time(tire_wear, lap_length_km, average_speed_kmh)
             tire_wear += wear_increase_per_lap
 
+        # Catat data lap
         lap_data.append((lap_time(tire_wear, lap_length_km, average_speed_kmh), pit_stops, tire_wear))
 
     return time_so_far, lap_data, manual_pit_laps
+
 
 # Membaca data sirkuit dari CSV
 df_sirkuit = pd.read_csv('data_sirkuit.csv')
@@ -143,6 +150,7 @@ if submit_button:
 
         # Buat DataFrame hasil
         df_manual = pd.DataFrame(manual_lap_data, columns=['Waktu Lap (detik)', 'Pit Stop', 'Tingkat Keausan Ban (%)'])
+        df_manual.index += 1
         st.write(f"Waktu total dengan strategi pit stop manual: {manual_time / 3600:.2f} jam ({manual_time:.2f} detik)")
         st.dataframe(df_manual)
 
