@@ -76,11 +76,9 @@ df_sirkuit = pd.read_csv('data_sirkuit.csv')
 st.title("Simulasi Strategi Pit Stop F1")
 
 with st.sidebar:
-    st.header("Instruksi Penggunaan")
+    st.header("Implementasi Algoritma A* untuk Menentukan Waktu Pit Stop Ideal pada Balapan Formula 1")
     st.write(
         """
-        **Implementasi Algoritma A* untuk Menentukan Waktu Pit Stop Ideal pada Balapan Formula 1** 
-
         Untuk menjalankan simulasi, ikuti langkah-langkah berikut:
         
         1. Pilih sirkuit balapan dari dropdown menu.
