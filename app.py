@@ -138,7 +138,7 @@ if submit_button:
     if manual_pit_laps:
         # Simulasi strategi pit stop manual
         manual_time, manual_lap_data, manual_pit_laps = manual_pit_strategy(
-            jumlah_lap, sirkuit_info['jarak'], average_speed_kmh, 22, manual_pit_laps, 0, wear_increase_per_lap
+            jumlah_lap, sirkuit_info['jarak'], average_speed_kmh, 22, manual_pit_laps, wear_increase_per_lap
         )
 
         # Buat DataFrame hasil
