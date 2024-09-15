@@ -87,7 +87,7 @@ st.image(image, caption=sirkuit_info['nama'])
 
 jumlah_lap = st.number_input("Jumlah Lap", min_value=1, max_value=100, value=int(sirkuit_info['lap']))
 average_speed_kmh = st.number_input("Kecepatan Rata-rata (km/h)", min_value=100, max_value=400, value=300)
-wear_increase_per_lap = st.number_input("Tingkat Keausan Ban per Lap (%)", min_value=1.0, max_value=10.0, value=3.62)
+wear_increase_per_lap = st.number_input("Tingkat Keausan Ban per Lap (%)", min_value=1.0, max_value=10.0, value=3.5)
 
 if st.button("Jalankan Simulasi"):
     best_time, pit_laps, lap_data = a_star_pit_strategy(jumlah_lap, sirkuit_info['jarak'], average_speed_kmh, wear_increase_per_lap, 22, 80)
