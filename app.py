@@ -58,11 +58,11 @@ sirkuit_terpilih = st.selectbox("Pilih Sirkuit", df_sirkuit['nama'])
 # Tampilkan informasi sirkuit
 sirkuit_info = df_sirkuit[df_sirkuit['nama'] == sirkuit_terpilih].iloc[0]
 st.write(f"Nama Sirkuit: {sirkuit_info['nama']}")
-st.write(f"Jumlah Lap: {sirkuit_info['jumlah lap']}")
-st.write(f"Panjang 1 Lap: {sirkuit_info['jarak (1 putaran)']} km")
+st.write(f"Jumlah Lap: {sirkuit_info['lap']}")
+st.write(f"Panjang 1 Lap: {sirkuit_info['jarak']} km")
 
 # Gambar sirkuit
-image = Image.open(sirkuit_info['gambar sirkuit'])
+image = Image.open(sirkuit_info['gambar'])
 st.image(image, caption=sirkuit_info['nama'])
 
 # Input yang bisa diubah
@@ -72,7 +72,7 @@ wear_increase_per_lap = st.number_input("Tingkat Keausan Ban per Lap (%)", min_v
 
 # Tombol untuk menjalankan simulasi
 if st.button("Jalankan Simulasi"):
-    best_time, pit_laps, lap_data = a_star_pit_strategy(jumlah_lap, sirkuit_info['jarak (1 putaran)'], average_speed_kmh, wear_increase_per_lap, 22, 80)
+    best_time, pit_laps, lap_data = a_star_pit_strategy(jumlah_lap, sirkuit_info['jarak'], average_speed_kmh, wear_increase_per_lap, 22, 80)
 
     # Membuat DataFrame dari lap_data
     df_lap = pd.DataFrame(lap_data, columns=['Waktu Lap (detik)', 'Pit Stop', 'Tingkat Keausan Ban (%)'])
