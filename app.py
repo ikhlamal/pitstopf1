@@ -104,3 +104,48 @@ if st.button("Jalankan Simulasi"):
     # Tampilkan tabel data lap
     st.write("Tabel Data Per Lap:")
     st.dataframe(df_lap)
+
+    # Inisialisasi session state untuk pit stop jika belum ada
+    if 'manual_pit_laps' not in st.session_state:
+        st.session_state.manual_pit_laps = [0] * 5  # Inisialisasi dengan 5 pit stop, semua nol
+    
+    st.write("Masukkan lap untuk pit stop manual (maksimal 5 pit stop):")
+    
+    # Membuat form untuk input pit stop
+    with st.form(key='pit_stop_form'):
+        for i in range(5):
+            st.session_state.manual_pit_laps[i] = st.number_input(
+                f"Pit stop {i+1} (opsional):",
+                min_value=0,
+                max_value=jumlah_lap,
+                value=st.session_state.manual_pit_laps[i],
+                key=f'pit_stop_{i+1}'
+            )
+    
+        # Tombol submit untuk mengonfirmasi input pit stop
+        submit_button = st.form_submit_button(label='Konfirmasi Pit Stop')
+    
+    # Jika tombol ditekan, tampilkan hasilnya
+    if submit_button:
+        manual_pit_laps = sorted(set(st.session_state.manual_pit_laps))  # Menghapus duplikat dan mengurutkan lap
+    
+        # Filter pit stop yang valid (tidak nol)
+        manual_pit_laps = [lap for lap in manual_pit_laps if lap > 0]
+    
+        if manual_pit_laps:
+            # Simulasi strategi pit stop manual
+            manual_time, manual_lap_data, manual_pit_laps = manual_pit_strategy(
+                jumlah_lap, sirkuit_info['jarak'], average_speed_kmh, 22, manual_pit_laps, 0, wear_increase_per_lap
+            )
+    
+            # Buat DataFrame hasil
+            df_manual = pd.DataFrame(manual_lap_data, columns=['Waktu Lap (detik)', 'Pit Stop', 'Tingkat Keausan Ban (%)'])
+            df_manual.index += 1
+    
+            # Tampilkan hasil
+            st.subheader("Strategi Pit Stop Manual")
+            st.write(f"Waktu total dengan strategi pit stop manual adalah: {manual_time / 3600:.2f} jam ({manual_time:.2f} detik)")
+            st.write(f"Pit stop dilakukan pada lap: {manual_pit_laps}")
+            st.write(df_manual)
+        else:
+            st.write("Anda belum memasukkan lap yang valid untuk pit stop manual.")
