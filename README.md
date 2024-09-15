@@ -1,4 +1,4 @@
-Implementasi Algoritma A\* untuk Menentukan Waktu Pit Stop Ideal pada
+**Implementasi Algoritma A\* untuk Menentukan Waktu Pit Stop Ideal pada
 Balapan Formula 1
 
 Cara Mengakses Program: Anda dapat mengakses aplikasi simulasi secara
