@@ -46,32 +46,24 @@ def a_star_pit_strategy(total_laps, lap_length_km, average_speed_kmh, wear_incre
             next_state = (next_time, lap + 1, next_tire_wear, pit_stops + 1, pit_laps + [lap + 1], lap_data.copy())
             heapq.heappush(pq, (next_time + (total_laps - (lap + 1)) * lap_time(next_tire_wear, lap_length_km, average_speed_kmh), next_state))
 
+# Fungsi untuk strategi pit stop manual
 def manual_pit_strategy(total_laps, lap_length_km, average_speed_kmh, pit_stop_time, manual_pit_laps, initial_tire_wear, wear_increase_per_lap):
     time_so_far = 0
     tire_wear = initial_tire_wear
     pit_stops = 0
     lap_data = []
 
-    manual_pit_laps = sorted(set(manual_pit_laps))  # Menghapus duplikat dan mengurutkan lap
-    pit_lap_set = set(manual_pit_laps)  # Mengubah daftar pit stop lap menjadi set untuk pencarian cepat
-
     for lap in range(1, total_laps + 1):
-        if lap in pit_lap_set:
-            # Jika pit stop dilakukan pada lap ini
-            if lap > 1:
-                # Update data lap untuk lap sebelumnya
-                lap_data[-1] = (tire_wear, lap_time(tire_wear, lap_length_km, average_speed_kmh), pit_stops)
+        if lap in manual_pit_laps:
             time_so_far += lap_time(tire_wear, lap_length_km, average_speed_kmh) + pit_stop_time
             tire_wear = 0  # Reset keausan ban setelah pit stop
             pit_stops += 1
         else:
-            # Jika tidak ada pit stop, tambahkan keausan ban
             time_so_far += lap_time(tire_wear, lap_length_km, average_speed_kmh)
             tire_wear += wear_increase_per_lap
-        
-        # Tambahkan data lap, baik lap sebelum atau setelah pit stop
-        lap_data.append((tire_wear, lap_time(tire_wear, lap_length_km, average_speed_kmh), pit_stops))
-    
+
+        lap_data.append((lap_time(tire_wear, lap_length_km, average_speed_kmh), pit_stops, tire_wear))
+
     return time_so_far, lap_data, manual_pit_laps
 
 # Membaca data sirkuit dari CSV
