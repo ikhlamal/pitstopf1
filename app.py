@@ -24,7 +24,7 @@ def a_star_pit_strategy(total_laps, lap_length_km, average_speed_kmh, wear_incre
         f_cost, (time_so_far, lap, tire_wear, pit_stops, pit_laps, lap_data) = heapq.heappop(pq)
         
         if lap < total_laps:
-            current_lap_data = (lap_time(tire_wear, lap_length_km, average_speed_kmh), pit_stops, tire_wear)
+            current_lap_data = (tire_wear, lap_time(tire_wear, lap_length_km, average_speed_kmh), pit_stops)
             lap_data.append(current_lap_data)
         
         if lap == total_laps:
@@ -75,7 +75,7 @@ if st.button("Jalankan Simulasi"):
     best_time, pit_laps, lap_data = a_star_pit_strategy(jumlah_lap, sirkuit_info['jarak'], average_speed_kmh, wear_increase_per_lap, 22, 80)
 
     # Membuat DataFrame dari lap_data
-    df_lap = pd.DataFrame(lap_data, columns=['Waktu Lap (detik)', 'Pit Stop', 'Tingkat Keausan Ban (%)'])
+    df_lap = pd.DataFrame(lap_data, columns=['Tingkat Keausan Ban (%)', 'Waktu Lap (detik)', 'Pit Stop'])
     df_lap.index += 1  # Untuk menampilkan lap mulai dari 1
 
     # Output waktu terbaik berdasarkan strategi pit stop
