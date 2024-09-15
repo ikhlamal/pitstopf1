@@ -46,6 +46,25 @@ def a_star_pit_strategy(total_laps, lap_length_km, average_speed_kmh, wear_incre
             next_state = (next_time, lap + 1, next_tire_wear, pit_stops + 1, pit_laps + [lap + 1], lap_data.copy())
             heapq.heappush(pq, (next_time + (total_laps - (lap + 1)) * lap_time(next_tire_wear, lap_length_km, average_speed_kmh), next_state))
 
+def manual_pit_strategy(total_laps, lap_length_km, average_speed_kmh, pit_stop_time, manual_pit_laps, initial_tire_wear, wear_increase_per_lap):
+    time_so_far = 0
+    tire_wear = initial_tire_wear
+    pit_stops = 0
+    lap_data = []
+
+    for lap in range(1, total_laps + 1):
+        if lap in manual_pit_laps:
+            time_so_far += lap_time(tire_wear, lap_length_km, average_speed_kmh) + pit_stop_time
+            tire_wear = 0  # Reset keausan ban setelah pit stop
+            pit_stops += 1
+        else:
+            time_so_far += lap_time(tire_wear, lap_length_km, average_speed_kmh)
+            tire_wear += wear_increase_per_lap
+
+        lap_data.append((lap_time(tire_wear, lap_length_km, average_speed_kmh), pit_stops, tire_wear))
+
+    return time_so_far, lap_data, manual_pit_laps
+
 # Membaca data sirkuit dari CSV
 df_sirkuit = pd.read_csv('data_sirkuit.csv')
 
@@ -85,3 +104,26 @@ if st.button("Jalankan Simulasi"):
     # Tampilkan tabel data lap
     st.write("Tabel Data Per Lap:")
     st.dataframe(df_lap)
+
+    st.write("Masukkan lap untuk pit stop manual (maksimal 5 pit stop):")
+    manual_pit_laps = []
+    for i in range(5):
+        pit_stop_input = st.number_input(f"Pit stop {i+1} (opsional):", min_value=1, max_value=total_laps, value=0, key=f'pit_stop_{i+1}')
+        if pit_stop_input > 0:
+            manual_pit_laps.append(pit_stop_input)
+    # Strategi Manual (jika input pit stop manual diberikan)
+    if manual_pit_laps:
+        manual_pit_laps = sorted(set(manual_pit_laps))  # Menghapus duplikat dan mengurutkan lap
+        manual_time, manual_lap_data, manual_pit_laps = manual_pit_strategy(
+            total_laps, lap_length_km, average_speed_kmh, 22, manual_pit_laps, 0, wear_increase_per_lap
+        )
+
+        df_manual = pd.DataFrame(manual_lap_data, columns=['Waktu Lap (detik)', 'Pit Stop', 'Tingkat Keausan Ban (%)'])
+        df_manual.index += 1
+
+        st.subheader("Strategi Pit Stop Manual")
+        st.write(f"Waktu total dengan strategi pit stop manual adalah: {manual_time / 3600:.2f} jam ({manual_time:.2f} detik)")
+        st.write(f"Pit stop dilakukan pada lap: {manual_pit_laps}")
+        st.write(df_manual)
+    else:
+        st.write("Anda belum memasukkan lap untuk pit stop manual.")
