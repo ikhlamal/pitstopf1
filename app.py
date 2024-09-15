@@ -108,20 +108,26 @@ if st.button("Jalankan Simulasi"):
     st.write("Masukkan lap untuk pit stop manual (maksimal 5 pit stop):")
     manual_pit_laps = []
     for i in range(5):
-        pit_stop_input = st.number_input(f"Pit stop {i+1} (opsional):", min_value=0, max_value=jumlah_lap, value=0, key=f'pit_stop_{i+1}')
+        pit_stop_input = st.number_input(
+            f"Pit stop {i+1} (opsional):", 
+            min_value=0, 
+            max_value=jumlah_lap, 
+            value=0, 
+            key=f'pit_stop_{i+1}'
+        )
         if pit_stop_input > 0:
             manual_pit_laps.append(pit_stop_input)
+    
     # Strategi Manual (jika input pit stop manual diberikan)
     if manual_pit_laps:
         manual_pit_laps = sorted(set(manual_pit_laps))  # Menghapus duplikat dan mengurutkan lap
         manual_time, manual_lap_data, manual_pit_laps = manual_pit_strategy(
             jumlah_lap, sirkuit_info['jarak'], average_speed_kmh, 22, manual_pit_laps, 0, wear_increase_per_lap
         )
-
-
+    
         df_manual = pd.DataFrame(manual_lap_data, columns=['Waktu Lap (detik)', 'Pit Stop', 'Tingkat Keausan Ban (%)'])
         df_manual.index += 1
-
+    
         st.subheader("Strategi Pit Stop Manual")
         st.write(f"Waktu total dengan strategi pit stop manual adalah: {manual_time / 3600:.2f} jam ({manual_time:.2f} detik)")
         st.write(f"Pit stop dilakukan pada lap: {manual_pit_laps}")
