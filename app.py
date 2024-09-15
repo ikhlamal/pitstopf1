@@ -115,8 +115,9 @@ if st.button("Jalankan Simulasi"):
     if manual_pit_laps:
         manual_pit_laps = sorted(set(manual_pit_laps))  # Menghapus duplikat dan mengurutkan lap
         manual_time, manual_lap_data, manual_pit_laps = manual_pit_strategy(
-            total_laps, lap_length_km, average_speed_kmh, 22, manual_pit_laps, 0, wear_increase_per_lap
+            jumlah_lap, sirkuit_info['jarak'], average_speed_kmh, 22, manual_pit_laps, 0, wear_increase_per_lap
         )
+
 
         df_manual = pd.DataFrame(manual_lap_data, columns=['Waktu Lap (detik)', 'Pit Stop', 'Tingkat Keausan Ban (%)'])
         df_manual.index += 1
