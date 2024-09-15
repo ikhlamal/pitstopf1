@@ -108,7 +108,7 @@ if st.button("Jalankan Simulasi"):
     st.write("Masukkan lap untuk pit stop manual (maksimal 5 pit stop):")
     manual_pit_laps = []
     for i in range(5):
-        pit_stop_input = st.number_input(f"Pit stop {i+1} (opsional):", min_value=1, max_value=jumlah_lap, value=0, key=f'pit_stop_{i+1}')
+        pit_stop_input = st.number_input(f"Pit stop {i+1} (opsional):", min_value=1, max_value=jumlah_lap, value=1, key=f'pit_stop_{i+1}')
         if pit_stop_input > 0:
             manual_pit_laps.append(pit_stop_input)
     # Strategi Manual (jika input pit stop manual diberikan)
