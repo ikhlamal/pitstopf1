@@ -75,6 +75,23 @@ df_sirkuit = pd.read_csv('data_sirkuit.csv')
 
 st.title("Simulasi Strategi Pit Stop F1")
 
+with st.sidebar:
+    st.header("Instruksi Penggunaan")
+    st.write(
+        """
+        **Implementasi Algoritma A* untuk Menentukan Waktu Pit Stop Ideal pada Balapan Formula 1** 
+
+        Untuk menjalankan simulasi, ikuti langkah-langkah berikut:
+        
+        1. Pilih sirkuit balapan dari dropdown menu.
+        2. Masukkan jumlah lap yang ingin disimulasikan.
+        3. Tentukan kecepatan rata-rata mobil dalam km/jam.
+        4. Atur tingkat keausan ban per lap dalam persen.
+        5. Klik tombol "Jalankan Simulasi" untuk melihat hasil simulasi dengan algoritma A*.
+        6. Jika ingin komparasi hasil dengan pit stop manual, masukkan lap-lap di mana pit stop akan dilakukan dan klik "Konfirmasi Pit Stop" untuk melihat hasilnya.
+        """
+    )
+
 sirkuit_terpilih = st.selectbox("Pilih Sirkuit", df_sirkuit['nama'])
 
 sirkuit_info = df_sirkuit[df_sirkuit['nama'] == sirkuit_terpilih].iloc[0]
@@ -113,7 +130,7 @@ if 'manual_pit_laps' not in st.session_state:
 with st.form(key='pit_stop_form'):
     for i in range(5):
         st.session_state.manual_pit_laps[i] = st.number_input(
-            f"Pit stop {i+1} (opsional):",
+            f"Pit stop {i+1}:",
             min_value=0,
             max_value=jumlah_lap,
             value=st.session_state.manual_pit_laps[i],
