@@ -46,9 +46,9 @@ def a_star_pit_strategy(total_laps, lap_length_km, average_speed_kmh, wear_incre
             next_state = (next_time, lap + 1, next_tire_wear, pit_stops + 1, pit_laps + [lap + 1], lap_data.copy())
             heapq.heappush(pq, (next_time + (total_laps - (lap + 1)) * lap_time(next_tire_wear, lap_length_km, average_speed_kmh), next_state))
 
-def manual_pit_strategy(total_laps, lap_length_km, average_speed_kmh, pit_stop_time, manual_pit_laps, initial_tire_wear, wear_increase_per_lap):
+def manual_pit_strategy(total_laps, lap_length_km, average_speed_kmh, pit_stop_time, manual_pit_laps, wear_increase_per_lap):
     time_so_far = 0
-    tire_wear = initial_tire_wear  # Mulai dengan keausan ban 0
+    tire_wear = 0  # Mulai dengan keausan ban 0
     pit_stops = 0
     lap_data = []
 
