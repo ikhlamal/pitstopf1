@@ -3,6 +3,11 @@ import pandas as pd
 import heapq
 from PIL import Image
 
+def convert_seconds_to_hms(seconds):
+    hours, remainder = divmod(seconds, 3600)
+    minutes, seconds = divmod(remainder, 60)
+    return int(hours), int(minutes), int(seconds)
+
 # Fungsi untuk menghitung waktu per lap berdasarkan keausan ban
 def lap_time(tire_wear, lap_length_km, average_speed_kmh):
     base_lap_time = (lap_length_km / average_speed_kmh) * 3600  # dalam detik
@@ -152,7 +157,8 @@ if submit_button:
         # Buat DataFrame hasil
         df_manual = pd.DataFrame(manual_lap_data, columns=['Tingkat Keausan Ban (%)', 'Waktu Lap (detik)', 'Pit Stop'])
         df_manual.index += 1
-        st.write(f"Waktu total dengan strategi pit stop manual: {manual_time / 3600:.2f} jam ({manual_time:.2f} detik)")
+        hours, minutes, seconds = convert_seconds_to_hms(manual_time)
+        st.write(f"Waktu total dengan strategi pit stop manual: {hours}:{minutes}:{seconds} ({manual_time:.2f} detik)")
         st.dataframe(df_manual)
 
     else:
