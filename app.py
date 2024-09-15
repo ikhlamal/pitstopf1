@@ -46,29 +46,21 @@ def a_star_pit_strategy(total_laps, lap_length_km, average_speed_kmh, wear_incre
             next_state = (next_time, lap + 1, next_tire_wear, pit_stops + 1, pit_laps + [lap + 1], lap_data.copy())
             heapq.heappush(pq, (next_time + (total_laps - (lap + 1)) * lap_time(next_tire_wear, lap_length_km, average_speed_kmh), next_state))
 
-# Fungsi untuk strategi pit stop manual
 def manual_pit_strategy(total_laps, lap_length_km, average_speed_kmh, pit_stop_time, manual_pit_laps, initial_tire_wear, wear_increase_per_lap):
     time_so_far = 0
-    tire_wear = initial_tire_wear
+    tire_wear = initial_tire_wear  # Mulai dengan keausan ban 0
     pit_stops = 0
     lap_data = []
 
-    pit_stop_set = set(manual_pit_laps)  # Mengatur lap pit stop menjadi set
-
     for lap in range(1, total_laps + 1):
-        if lap in pit_stop_set:
-            # Tambahkan waktu lap + pit stop
+        if lap in manual_pit_laps:
             time_so_far += lap_time(tire_wear, lap_length_km, average_speed_kmh) + pit_stop_time
-            # Reset keausan ban setelah pit stop
-            tire_wear = 0
+            tire_wear = 0  # Reset keausan ban setelah pit stop
             pit_stops += 1
         else:
-            # Tambahkan waktu lap tanpa pit stop
             time_so_far += lap_time(tire_wear, lap_length_km, average_speed_kmh)
-            # Update keausan ban setelah setiap lap
             tire_wear += wear_increase_per_lap
-        
-        # Simpan data lap
+
         lap_data.append((lap_time(tire_wear, lap_length_km, average_speed_kmh), pit_stops, tire_wear))
 
     return time_so_far, lap_data, manual_pit_laps
