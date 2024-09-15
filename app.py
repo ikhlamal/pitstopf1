@@ -53,8 +53,6 @@ def manual_pit_strategy(total_laps, lap_length_km, average_speed_kmh, pit_stop_t
     lap_data = []
 
     # Tambahkan lap 0 dengan waktu lap 0
-    # Hitung waktu lap 0 dan keausan ban (sebelum lap 1 dimulai)
-    # Misalkan waktu lap 0 diatur dengan nilai default atau waktu baseline
     initial_lap_time = lap_time(tire_wear, lap_length_km, average_speed_kmh)
     lap_data.append((initial_lap_time, pit_stops, tire_wear))  # Waktu lap = initial_lap_time, keausan ban = 0, pit stop = 0
 
@@ -69,9 +67,10 @@ def manual_pit_strategy(total_laps, lap_length_km, average_speed_kmh, pit_stop_t
             time_so_far += lap_time(tire_wear, lap_length_km, average_speed_kmh)
             tire_wear += wear_increase_per_lap
         
-        # Catat data lap
-        lap_data.append((lap_time(tire_wear, lap_length_km, average_speed_kmh), pit_stops, tire_wear))
-
+        # Catat data lap, tetapi hanya jika lap < total_laps
+        if lap < total_laps:
+            lap_data.append((lap_time(tire_wear, lap_length_km, average_speed_kmh), pit_stops, tire_wear))
+    
     return time_so_far, lap_data, manual_pit_laps
     
 # Membaca data sirkuit dari CSV
